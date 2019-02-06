@@ -9,7 +9,7 @@ const db = require('./db');
 const port = 9000;
 
 const typeDefs = fs.readFileSync('./schema.graphql', {encoding: 'utf-8'});
-const resolvers = require('./resolvers');
+const resolvers = require('./src/resolvers/resolvers');
 const schema = makeExecutableSchema({typeDefs, resolvers});
 
 const app = express();

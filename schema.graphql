@@ -8,6 +8,7 @@ type Board {
   id: ID!
   player: Player
   status: String
+  board: [[Int]]
 }
 
 type Mutation {

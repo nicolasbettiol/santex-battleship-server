@@ -1,4 +1,4 @@
-const db = require('./db');
+const db = require('../../db');
 
 const Query = {
   game: (root, {id}) => db.games.get(id),
