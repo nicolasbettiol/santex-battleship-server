@@ -1,8 +1,8 @@
-const { DataStore } = require('notarealdb');
+import { DataStore } from 'notarealdb';
 
-const store = new DataStore('./data');
+const store = new DataStore('data/');
 
-module.exports = {
+export = {
   boards: store.collection('boards'),
   games: store.collection('games'),
   players: store.collection('players')
