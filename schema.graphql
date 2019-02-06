@@ -1,29 +1,33 @@
 type Query {
-  company(id: ID!): Company
-  job(id: ID!): Job
-  jobs: [Job]
+  game(id: ID!): Game
+  player(id: ID!): Player
+  boards: [Board]
+}
+
+type Board {
+  id: ID!
+  player: Player
+  status: String
 }
 
 type Mutation {
-  createJob(input: CreateJobInput): Job
+  createGame(input: CreateGameInput): Game
 }
 
-type Company {
+type Player {
   id: ID!
   name: String
-  description: String
-  jobs: [Job]
 }
 
-type Job {
+type Game {
   id: ID!
-  title: String
-  company: Company
-  description: String
+  createdAt: String
+  startTime: String
+  endTime: String
+  boardOwner: Board
+  boardGuest: Board
 }
 
-input CreateJobInput {
-  companyId: ID
-  title: String
-  description: String
+input CreateGameInput {
+  createdAt : String
 }
