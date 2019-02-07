@@ -7,7 +7,7 @@ import { readFileSync } from 'fs';
 
 const  port = 9000;
 
-const typeDefs = readFileSync('lib/src/graphql/schema.graphql', {encoding: 'utf-8'});
+const typeDefs = readFileSync('app/src/graphql/schema.graphql', {encoding: 'utf-8'});
 const resolvers = require('./src/resolvers/resolvers');
 const schema = makeExecutableSchema({typeDefs, resolvers});
 
