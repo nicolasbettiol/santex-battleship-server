@@ -16,6 +16,10 @@ type Mutation {
   joinGame(input: JoinGameInput): Game
 }
 
+type Subscription {
+  newGameAdded(channelId: ID!): Game
+}
+
 type Player {
   id: ID!
   name: String
