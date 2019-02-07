@@ -8,7 +8,8 @@ const pubsub = new PubSub();
 const Query = {
   game: (root, {id}) => db.games.get(id),
   player: (root, {id}) => db.players.get(id),
-  boards: () => db.boards.list()
+  boards: () => db.boards.list(),
+  players: () => db.players.list()
 };
 
 const Subscription = {
