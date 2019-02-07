@@ -1,39 +1,22 @@
 import app from "./app";
 
 import { execute, subscribe } from "graphql";
-import { createServer } from "http";
 import { SubscriptionServer } from "subscriptions-transport-ws";
-
-import { graphqlExpress, graphiqlExpress } from 'apollo-server-express';
-import { makeExecutableSchema } from 'graphql-tools';
-
-import express from 'express';
+import { ApolloServer, gql } from 'apollo-server-express';
 import { readFileSync } from 'fs';
 
-const  port = 9000;
+const  PORT = 9000;
+const http = require('http');
+var httpServer = http.createServer(app);
 
-const typeDefs = readFileSync('app/src/graphql/schema.graphql', {encoding: 'utf-8'});
 const resolvers = require('./src/resolvers/resolvers');
-const schema = makeExecutableSchema({typeDefs, resolvers});
+const typeDefs =  gql`${readFileSync('app/src/graphql/schema.graphql', 'utf8')}`;
 
-app.use('/graphql', graphqlExpress({schema}));
-app.use('/graphiql', graphiqlExpress({
-    endpointURL: '/graphql',
-    subscriptionsEndpoint: 'ws://localhost:9000/subscriptions'
-}));
+const apollo = new ApolloServer({typeDefs, resolvers});
+apollo.applyMiddleware({ app });
+apollo.installSubscriptionHandlers(httpServer)
 
-
-const ws = createServer(app);
-
-ws.listen(port, () => {
-  console.log(`GraphQL Server is now running on http://localhost:${port}`);
-  // Set up the WebSocket for handling GraphQL subscriptions
-  new SubscriptionServer({
-    execute,
-    subscribe,
-    schema
-  }, {
-    server: ws,
-    path: '/subscriptions',
-  });
-});
+httpServer.listen({ port: PORT }, () => {
+  console.log(`🚀 Server ready at http://localhost:9000${apollo.graphqlPath}`)
+  console.log(`Subscriptions ready at ws://localhost:${PORT}${apollo.subscriptionsPath}`)
+})

@@ -13,14 +13,7 @@ const Query = {
 
 const Subscription = {
   newGameAdded: {
-    subscribe: withFilter(
-      () => pubsub.asyncIterator("newGameAdded"),
-      (payload, variables) => {
-        console.log(payload);
-        console.log(variables);
-        return true;
-      }
-    )
+    subscribe: () => pubsub.asyncIterator(["NEW_GAME"])
   }
 }
 
@@ -29,8 +22,8 @@ const Mutation = {
     const gm = new GameManager();
     const id = gm.generateNewGame(input); 
 
-    pubsub.publish("newGameAdded", { 
-      newGameAdded: "hola", channelId: "1"
+    pubsub.publish("NEW_GAME", { 
+      newGameAdded : db.games.get(id)
     });
 
     return db.games.get(id);
