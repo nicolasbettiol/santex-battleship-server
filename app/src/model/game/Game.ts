@@ -5,8 +5,12 @@ class Game{
     createdAt: string
     startTime: string
     endTime: string
-    boardOwnerId: Board
-    boardGuestId: Board
+    boardOwnerId: string
+    boardGuestId: string
+
+    constructor(boardOwnerId){
+        this.boardOwnerId = boardOwnerId;
+    }
 }
 
 export = Game;

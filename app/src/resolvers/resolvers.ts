@@ -5,17 +5,14 @@ const Query = {
   game: (root, {id}) => db.games.get(id),
   player: (root, {id}) => db.players.get(id),
   boards: () => {
-    const gm = new GameManager();
-    console.log(gm.generateNewGame());
-
     return db.boards.list();
   }
 };
 
 const Mutation = {
-  createGame: (root, {input}) => {
-    
-    const id = db.games.create(input);
+  createGame: (root, {input}) => {  
+    const gm = new GameManager();
+    const id = gm.generateNewGame(input); 
     return db.games.get(id);
   }
 };
@@ -28,4 +25,4 @@ const Game = {
   boardOwner: (game) => db.boards.get(game.boardOwnerId)
 };
 
-module.exports = { Query, Mutation, Board , Game};
+module.exports = { Query, Mutation, Board , Game };

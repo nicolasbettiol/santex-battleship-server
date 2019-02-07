@@ -1,0 +1,22 @@
+mutation CreateGame($input: CreateGameInput){
+    createGame(input: $input){
+        id
+    		boardOwner {
+    		  id
+          status
+          board
+          player {
+            id
+            name
+          }
+    		}
+    }
+}
+
+
+
+{
+    "input":{
+       "playerId" : "BJrp-DudG"
+    }
+}

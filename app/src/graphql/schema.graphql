@@ -30,5 +30,5 @@ type Game {
 }
 
 input CreateGameInput {
-  createdAt : String
+  playerId : String
 }
