@@ -1,22 +1,45 @@
 mutation CreateGame($input: CreateGameInput){
     createGame(input: $input){
         id
-    		boardOwner {
-    		  id
+    	boardOwner {
+    	  id
+          status
+          board
+          player {
+           id
+           name
+          }
+    	}
+    }
+}
+
+{
+    "input":{
+       "playerId" : "BJrp-DudG"
+    }
+}
+
+------ JOIN
+
+
+mutation JoinGame($input: JoinGameInput){
+    joinGame(input: $input){
+        id
+    	boardOwner {
+    	  id
           status
           board
           player {
             id
             name
           }
-    		}
+    	}
     }
 }
 
-
-
 {
     "input":{
-       "playerId" : "BJrp-DudG"
+       "playerId" : "BJrp-DudG",
+       "gameId": "HJRa-DOuG"
     }
 }

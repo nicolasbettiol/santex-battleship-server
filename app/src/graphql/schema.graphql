@@ -13,6 +13,7 @@ type Board {
 
 type Mutation {
   createGame(input: CreateGameInput): Game
+  joinGame(input: JoinGameInput): Game
 }
 
 type Player {
@@ -31,4 +32,9 @@ type Game {
 
 input CreateGameInput {
   playerId : String
+}
+
+input JoinGameInput {
+  playerId : String
+  gameId: String
 }

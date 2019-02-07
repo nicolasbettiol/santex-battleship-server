@@ -1,4 +1,5 @@
 import Board = require("../board/Board");
+import date = require("../../util/date");
 
 class Game{
     id : string
@@ -10,6 +11,7 @@ class Game{
 
     constructor(boardOwnerId){
         this.boardOwnerId = boardOwnerId;
+        this.createdAt = date.getDate();
     }
 }
 
