@@ -71,7 +71,6 @@ class BoardManager{
     }
 
     printBoard(playerBoard: Board){
-        console.log("****************************"); 
         console.log("");
         playerBoard.board.forEach(element => {
             console.log(element);      

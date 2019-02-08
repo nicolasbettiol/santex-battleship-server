@@ -22,26 +22,28 @@ class GameManager{
 
     joinPlayerToGame({playerId, gameId}): void{
         const boardGuest = new Board(playerId);
+        boardGuest.status = "PLAYING";
         const boardGuestId = db.boards.create(boardGuest);
         const game = <Game> db.games.get(gameId);
         game.startTime = date.getDate();
         game.boardGuestId = boardGuestId;
         game.status = "PLAYING";
+        const boardOwner = <Board> db.boards.get(game.boardOwnerId);
+        boardOwner.status = "PLAYING";
         db.games.update(game);
         console.log("Player id "+playerId+" join to game");
     }
 
     checkGameStatus(boardId: string, gameId: string) : void{
         const playerBoard = <Board> db.boards.get(boardId);
+        const game = <Game> db.games.get(gameId);
         if(playerBoard.status === "SUNKEN"){
-            const game = <Game> db.games.get(gameId);
             game.status = "FINISHED"
-
-            Subscriptions.Instance.pubsub.publish("SHOT", { 
-                shot : game
-            });
             db.games.update(game);
         }
+        Subscriptions.Instance.pubsub.publish("SHOT", { 
+            shot : game
+        });
     }
 }
 
