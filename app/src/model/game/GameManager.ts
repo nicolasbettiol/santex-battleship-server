@@ -5,6 +5,7 @@ import Player = require("../player/Player");
 import db  = require("../../../db");
 import Board = require("../board/Board");
 import date = require("../../util/date");
+import Subscriptions = require("../../resolvers/Subscriptions");
 
 class GameManager{
 
@@ -36,9 +37,8 @@ class GameManager{
             const game = <Game> db.games.get(gameId);
             game.status = "FINISHED"
 
-            const pubsub = new PubSub();
-            pubsub.publish("NEW_GAME", { 
-                newGameAdded : game
+            Subscriptions.Instance.pubsub.publish("SHOT", { 
+                shot : game
             });
             db.games.update(game);
         }
