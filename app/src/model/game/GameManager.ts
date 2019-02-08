@@ -23,6 +23,7 @@ class GameManager{
         const game = <Game> db.games.get(gameId);
         game.startTime = date.getDate();
         game.boardGuestId = boardGuestId;
+        game.status = "PLAYING";
         db.games.update(game);
         console.log("Player id "+playerId+" join to game");
     }
