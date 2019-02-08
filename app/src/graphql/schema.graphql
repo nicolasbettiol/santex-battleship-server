@@ -20,6 +20,7 @@ type Mutation {
 
 type Subscription {
   newGameAdded: Game
+  shot: Game
 }
 
 type Player {
@@ -48,6 +49,7 @@ input JoinGameInput {
 
 input ShotInput {
   boardId: String
+  gameId: String
   x: Int
   y: Int
 }

@@ -60,8 +60,10 @@ class BoardManager{
                 }
             }); 
          });
-         console.log(" Are all ship sunken? : "+allSunken);
-         playerBoard.allSunken = allSunken;
+         if(allSunken){
+            console.log("All ship sunken!");
+            playerBoard.status = "SUNKEN";
+         }
     }
 
     getShipHitedValue(positionValue: number): number{

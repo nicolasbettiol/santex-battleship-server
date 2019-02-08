@@ -1,4 +1,4 @@
-import { PubSub, withFilter } from "graphql-subscriptions";
+import { PubSub } from "graphql-subscriptions";
 
 import db = require('../../db');
 import GameManager = require("../model/game/GameManager")
@@ -19,6 +19,9 @@ const Query = {
 const Subscription = {
   newGameAdded: {
     subscribe: () => pubsub.asyncIterator(["NEW_GAME"])
+  },
+  shot: {
+    subscribe: () => pubsub.asyncIterator(["SHOT"])
   }
 }
 
@@ -40,6 +43,7 @@ const Mutation = {
   shot: (root, {input}) => {
     console.log(bm);
     bm.shot(input.boardId, input.x, input.y);
+    gm.checkGameStatus(input.boardId, input.gameId);
   }
 };
 

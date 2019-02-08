@@ -1,3 +1,5 @@
+import { PubSub } from "graphql-subscriptions";
+
 import Game = require("./Game");
 import Player = require("../player/Player");
 import db  = require("../../../db");
@@ -26,6 +28,20 @@ class GameManager{
         game.status = "PLAYING";
         db.games.update(game);
         console.log("Player id "+playerId+" join to game");
+    }
+
+    checkGameStatus(boardId: string, gameId: string) : void{
+        const playerBoard = <Board> db.boards.get(boardId);
+        if(playerBoard.status === "SUNKEN"){
+            const game = <Game> db.games.get(gameId);
+            game.status = "FINISHED"
+
+            const pubsub = new PubSub();
+            pubsub.publish("NEW_GAME", { 
+                newGameAdded : game
+            });
+            db.games.update(game);
+        }
     }
 }
 

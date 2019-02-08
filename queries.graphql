@@ -1,3 +1,4 @@
+--------- NEW GAME
 mutation CreateGame($input: CreateGameInput){
     createGame(input: $input){
         id
@@ -12,16 +13,13 @@ mutation CreateGame($input: CreateGameInput){
     	}
     }
 }
-
 {
     "input":{
-       "playerId" : "BJrp-DudG"
+       "playerId" : "1"
     }
 }
 
 ------ JOIN
-
-
 mutation JoinGame($input: JoinGameInput){
     joinGame(input: $input){
         id
@@ -29,13 +27,12 @@ mutation JoinGame($input: JoinGameInput){
 }
 {
     "input":{
-       "playerId" : "BJrp-DudG",
-       "gameId": "HJRa-DOuG"
+       "playerId" : "2",
+       "gameId": "1"
     }
 }
 
 ------ SUBSCRIPTION
-
 subscription{
   newGameAdded{
     id
@@ -43,16 +40,14 @@ subscription{
 }
 
 ------- SHOT
-
-# Write your query or mutation here
 mutation Shot($input: ShotInput){
   shot(input: $input)
 }
-
 {
     "input":{ 
       "x": 0,
-      "y": 2,
-      "boardId": "HyHhcWi4V"
+      "y": 5,
+      "boardId": "1"
+      "gameId": "1"
     }
 }
