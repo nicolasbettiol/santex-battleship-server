@@ -13,24 +13,25 @@ class BoardManager{
     }
 
     shot(boardId: string, x: number, y: number) : void {
-        const board = <Board> db.boards.get(boardId);        
-        var posValue = board.board[x][y]
+        var playerBoard = <Board> db.boards.get(boardId);        
+        const posValue = playerBoard.board[x][y]
         if(this.hasShip(posValue)){
-            board.board[x][y] = this.getShipHitedValue(posValue);
-            this.validateSunken(posValue, board);
-            db.boards.update(board);
-            return;
+            console.log("Ship beated");
+            playerBoard.board[x][y] = this.getShipHitedValue(posValue);
+            this.validateSunken(posValue, playerBoard);
+            db.boards.update(playerBoard);
         }
         if(posValue === CellValue.WATER){
-            board.board[x][y] = CellValue.HIT_WATER;
-            db.boards.update(board);
-            return;
+            console.log("Water...");
+            playerBoard.board[x][y] = CellValue.HIT_WATER;
+            db.boards.update(playerBoard);
         }
+        this.printBoard(playerBoard);
     }
 
-    validateSunken(posValue: number, board: Board) : void {
+    validateSunken(posValue: number, playerBoard: Board) : void {
         var isSunken = true;
-        board.board.forEach(row => {
+        playerBoard.board.forEach(row => {
            row.forEach(cell => {
                if(cell === posValue){
                 isSunken = false;
@@ -38,18 +39,41 @@ class BoardManager{
            }); 
         });        
         if(isSunken){
-            board.board.forEach((row, x) => {
+            console.log("Ship shunked");
+            playerBoard.board.forEach((row, x) => {
                 row.forEach((value, y) => {
                     if(value === this.getShipHitedValue(posValue)){
-                        board.board[x][y] = CellValue.SUNKED;
+                        playerBoard.board[x][y] = CellValue.SUNKED;
                     }
                 }); 
             });
+            this.validateAllShipSunken(playerBoard);
         }
+    }
+
+    validateAllShipSunken(playerBoard : Board) : void{
+        var allSunken = true;
+        playerBoard.board.forEach(row => {
+            row.forEach(cell => {
+                if(this.hasShip(cell)){
+                    allSunken = false;
+                }
+            }); 
+         });
+         console.log(" Are all ship sunken? : "+allSunken);
+         playerBoard.allSunken = allSunken;
     }
 
     getShipHitedValue(positionValue: number): number{
         return positionValue * - 1;
+    }
+
+    printBoard(playerBoard: Board){
+        console.log("****************************"); 
+        console.log("");
+        playerBoard.board.forEach(element => {
+            console.log(element);      
+        });
     }
 }
 

@@ -13,6 +13,7 @@ class GameManager{
         const boardOwner = new Board(playerId);
         const boardOwnerId = db.boards.create(boardOwner); 
         const game = new Game(boardOwnerId);
+        console.log("New game created for player id "+ playerId);
         return db.games.create(game);
     }
 
@@ -23,6 +24,7 @@ class GameManager{
         game.startTime = date.getDate();
         game.boardGuestId = boardGuestId;
         db.games.update(game);
+        console.log("Player id "+playerId+" join to game");
     }
 }
 

@@ -7,6 +7,7 @@ class Board{
     status: string
     board: number[][]
     ships: Ship[]
+    allSunken: boolean
 
     constructor(playerId){
         this.playerId = playerId;
@@ -14,6 +15,7 @@ class Board{
         this.ships = new Array<Ship>();
         this.ships.push(new Ship(3, 10));
         this.ships.push(new Ship(3, 20));
+        this.allSunken = false;
         this.board = [
             [20, 20, 20, 0, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 10, 0, 0, 0, 0, 0, 0],
