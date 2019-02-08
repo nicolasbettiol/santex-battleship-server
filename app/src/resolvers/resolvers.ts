@@ -2,8 +2,12 @@ import { PubSub, withFilter } from "graphql-subscriptions";
 
 import db = require('../../db');
 import GameManager = require("../model/game/GameManager")
+import BoardManager = require("../model/board/BoardManager")
+
 
 const pubsub = new PubSub();
+const gm = new GameManager();
+const bm = new BoardManager();
 
 const Query = {
   game: (root, {id}) => db.games.get(id),
@@ -20,7 +24,6 @@ const Subscription = {
 
 const Mutation = {
   createGame: (root, {input}) => {  
-    const gm = new GameManager();
     const id = gm.generateNewGame(input); 
 
     pubsub.publish("NEW_GAME", { 
@@ -33,6 +36,10 @@ const Mutation = {
     const gm = new GameManager();
     gm.joinPlayerToGame(input); 
     return db.games.get(input.gameId);
+  },
+  shot: (root, {input}) => {
+    console.log(bm);
+    bm.shot(input.boardId, input.x, input.y);
   }
 };
 

@@ -15,6 +15,7 @@ type Board {
 type Mutation {
   createGame(input: CreateGameInput): Game
   joinGame(input: JoinGameInput): Game
+  shot(input: ShotInput): Int
 }
 
 type Subscription {
@@ -40,6 +41,12 @@ input CreateGameInput {
 }
 
 input JoinGameInput {
-  playerId : String
+  playerId: String
   gameId: String
+}
+
+input ShotInput {
+  boardId: String
+  x: Int
+  y: Int
 }

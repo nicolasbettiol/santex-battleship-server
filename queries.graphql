@@ -25,21 +25,34 @@ mutation CreateGame($input: CreateGameInput){
 mutation JoinGame($input: JoinGameInput){
     joinGame(input: $input){
         id
-    	boardOwner {
-    	  id
-          status
-          board
-          player {
-            id
-            name
-          }
-    	}
     }
 }
-
 {
     "input":{
        "playerId" : "BJrp-DudG",
        "gameId": "HJRa-DOuG"
+    }
+}
+
+------ SUBSCRIPTION
+
+subscription{
+  newGameAdded{
+    id
+  }
+}
+
+------- SHOT
+
+# Write your query or mutation here
+mutation Shot($input: ShotInput){
+  shot(input: $input)
+}
+
+{
+    "input":{ 
+      "x": 0,
+      "y": 2,
+      "boardId": "HyHhcWi4V"
     }
 }
