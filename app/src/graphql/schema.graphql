@@ -3,6 +3,7 @@ type Query {
   player(id: ID!): Player
   boards: [Board]
   players: [Player]
+  games: [Game]
 }
 
 type Board {
