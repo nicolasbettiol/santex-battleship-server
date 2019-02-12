@@ -21,10 +21,13 @@ class GameManager{
     }
 
     joinPlayerToGame({playerId, gameId}): void{
+        const game = <Game> db.games.get(gameId);
+        if(game.boardGuestId){
+            return;
+        }
         const boardGuest = new Board(playerId);
         boardGuest.status = "PLAYING";
         const boardGuestId = db.boards.create(boardGuest);
-        const game = <Game> db.games.get(gameId);
         game.startTime = date.getDate();
         game.boardGuestId = boardGuestId;
         game.status = "PLAYING";
@@ -37,6 +40,7 @@ class GameManager{
     checkGameStatus(boardId: string, gameId: string) : void{
         const playerBoard = <Board> db.boards.get(boardId);
         const game = <Game> db.games.get(gameId);
+        game.lastTurn = playerBoard.playerId;
         if(playerBoard.status === "SUNKEN"){
             game.status = "FINISHED"
             db.games.update(game);

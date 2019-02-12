@@ -9,6 +9,7 @@ class Game{
     boardOwnerId: string
     boardGuestId: string
     status: string
+    lastTurn: string
 
     constructor(boardOwnerId){
         this.boardOwnerId = boardOwnerId;

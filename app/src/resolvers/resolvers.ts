@@ -26,11 +26,9 @@ const Subscription = {
 const Mutation = {
   createGame: (root, {input}) => {  
     const id = gm.generateNewGame(input); 
-
     Subscriptions.Instance.pubsub.publish("NEW_GAME", { 
       newGameAdded : db.games.get(id)
     });
-
     return db.games.get(id);
   },
   joinGame: (root, {input}) => {  
@@ -41,6 +39,7 @@ const Mutation = {
   shot: (root, {input}) => {
     bm.shot(input.boardId, input.x, input.y);
     gm.checkGameStatus(input.boardId, input.gameId);
+    return db.games.get(input.gameId);
   }
 };
 

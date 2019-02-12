@@ -16,7 +16,7 @@ type Board {
 type Mutation {
   createGame(input: CreateGameInput): Game
   joinGame(input: JoinGameInput): Game
-  shot(input: ShotInput): Int
+  shot(input: ShotInput): Game
 }
 
 type Subscription {
@@ -37,6 +37,7 @@ type Game {
   boardOwner: Board
   boardGuest: Board
   status: String
+  lastTurn: String
 }
 
 input CreateGameInput {
