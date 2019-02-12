@@ -16,6 +16,7 @@ class GameManager{
         const boardOwner = new Board(playerId);
         const boardOwnerId = db.boards.create(boardOwner); 
         const game = new Game(boardOwnerId);
+        game.lastTurn = playerId;
         console.log("New game created for player id "+ playerId);
         return db.games.create(game);
     }
