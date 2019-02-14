@@ -60,4 +60,4 @@ const Game = {
   boardGuest: (game) => db.boards.get(game.boardGuestId)
 };
 
-module.exports = { Query, Mutation, Board , Game, Subscription};
+module.exports = { Query, Mutation, Board, Game, Subscription};

@@ -1,5 +1,6 @@
 import Board = require("../board/Board");
 import date = require("../../util/date");
+import GameStatus = require("./game.constants");
 
 class Game{
     id : string
@@ -14,7 +15,7 @@ class Game{
     constructor(boardOwnerId){
         this.boardOwnerId = boardOwnerId;
         this.createdAt = date.getDate();
-        this.status = "CREATED";
+        this.status = GameStatus.CREATED.toString();
     }
 }
 

@@ -1,11 +1,11 @@
-import { PubSub } from "graphql-subscriptions";
-
 import Game = require("./Game");
-import Player = require("../player/Player");
 import db  = require("../../../db");
 import Board = require("../board/Board");
 import date = require("../../util/date");
 import Subscriptions = require("../../resolvers/Subscriptions");
+import GameStatus = require("./game.constants");
+import BoardStatus = require("../board/board.constants");
+
 
 class GameManager{
 
@@ -28,12 +28,12 @@ class GameManager{
             return;
         }
         const boardGuest = new Board(playerId);
-        boardGuest.status = "PLAYING";
+        boardGuest.status = BoardStatus.PLAYING.toString();
         const boardGuestId = db.boards.create(boardGuest);
         game.startTime = date.getDate();
         game.boardGuestId = boardGuestId;
-        game.status = "PLAYING";
-        boardOwner.status = "PLAYING";
+        game.status = GameStatus.PLAYING.toString();
+        boardOwner.status = BoardStatus.PLAYING.toString();
         db.games.update(game);
         console.log("Player id "+playerId+" join to game");
     }
@@ -42,8 +42,8 @@ class GameManager{
         const playerBoard = <Board> db.boards.get(boardId);
         const game = <Game> db.games.get(gameId);
         game.lastTurn = playerBoard.playerId;
-        if(playerBoard.status === "SUNKEN"){
-            game.status = "FINISHED"
+        if(playerBoard.status ===  BoardStatus.SUNKEN.toString()){
+            game.status = GameStatus.FINISHED.toString();
             db.games.update(game);
         }
         Subscriptions.Instance.pubsub.publish("SHOT", { 

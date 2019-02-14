@@ -1,6 +1,7 @@
 import Board = require("./Board");
 import CellValue = require("./CellValue");
 import db  = require("../../../db");
+import BoardStatus = require("./board.constants");
 
 class BoardManager{
 
@@ -8,6 +9,9 @@ class BoardManager{
     }
 
     hasShip(positionValue: number){
+        // All ship has a value equals or bigger than 10. 
+        // Each ship is represent with the values 10, 20, 30 or 40
+        // When a cell is hitted, this value is move to negative.
         const SHIP_VALUE = 10;
         return positionValue >= SHIP_VALUE;
     }
@@ -62,7 +66,7 @@ class BoardManager{
          });
          if(allSunken){
             console.log("All ship sunken!");
-            playerBoard.status = "SUNKEN";
+            playerBoard.status = BoardStatus.SUNKEN.toString();
          }
     }
 
