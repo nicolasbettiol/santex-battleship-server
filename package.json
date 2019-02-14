@@ -9,6 +9,7 @@
     "prod": "npm run build && npm run start"
   },
   "dependencies": {
+    "apollo-server": "^2.4.0",
     "apollo-server-express": "^2.4.0",
     "apollo-server-module-graphiql": "^1.4.0",
     "body-parser": "1.18.2",

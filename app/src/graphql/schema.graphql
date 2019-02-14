@@ -21,7 +21,7 @@ type Mutation {
 
 type Subscription {
   newGameAdded: Game
-  shot: Game
+  shot(gameId: ID!): Game
 }
 
 type Player {

@@ -2,6 +2,7 @@ import db = require('../../db');
 import GameManager = require("../model/game/GameManager")
 import BoardManager = require("../model/board/BoardManager")
 import Subscriptions = require("./Subscriptions")
+const { withFilter } = require("apollo-server")
 
 const gm = new GameManager();
 const bm = new BoardManager();
@@ -19,7 +20,12 @@ const Subscription = {
     subscribe: () => Subscriptions.Instance.pubsub.asyncIterator(["NEW_GAME"])
   },
   shot: {
-    subscribe: () => Subscriptions.Instance.pubsub.asyncIterator(["SHOT"])
+    subscribe: withFilter(
+      () => Subscriptions.Instance.pubsub.asyncIterator(["SHOT"]),
+      (payload, variables) => { 
+        return payload.shot.id === variables.gameId 
+      },
+    )
   }
 }
 
