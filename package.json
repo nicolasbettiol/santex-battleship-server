@@ -3,10 +3,7 @@
   "private": true,
   "license": "MIT",
   "scripts": {
-    "build": "tsc",
-    "dev": "ts-node ./app/server.ts",
-    "start": "nodemon ./dist/server.js",
-    "prod": "npm run build && npm run start"
+    "dev": "ts-node ./app/server.ts"
   },
   "dependencies": {
     "apollo-server": "^2.4.0",
