@@ -1,5 +1,6 @@
 type Query {
   game(id: ID!): Game
+  playerGames(id: ID!): [Game]
   player(id: ID!): Player
   boards: [Board]
   players: [Player]

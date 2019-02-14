@@ -9,6 +9,7 @@ const bm = new BoardManager();
 
 const Query = {
   game: (root, {id}) => db.games.get(id),
+  playerGames: (root, {id}) => gm.getPlayerGames(id),
   player: (root, {id}) => db.players.get(id),
   boards: () => db.boards.list(),
   players: () => db.players.list(),

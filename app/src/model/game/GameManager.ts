@@ -50,6 +50,22 @@ class GameManager{
             shot : game
         });
     }
+
+    getPlayerGames(id: string) : Game[] {
+        var gamesResult = [];
+
+        var allGames = <Game[]>db.games.list();
+
+        allGames.forEach((game) => {
+            const boardGuest = <Board> db.boards.get(game.boardGuestId);
+            const boardOwner = <Board> db.boards.get(game.boardOwnerId);
+            if( (boardGuest && boardGuest.playerId === id) || (boardOwner && boardOwner.playerId === id)){
+                gamesResult.push(game);
+            }
+        });
+        
+        return gamesResult;
+    }
 }
 
 export = GameManager;
