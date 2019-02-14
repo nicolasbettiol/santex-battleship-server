@@ -23,7 +23,8 @@ class GameManager{
 
     joinPlayerToGame({playerId, gameId}): void{
         const game = <Game> db.games.get(gameId);
-        if(game.boardGuestId){
+        const boardOwner = <Board> db.boards.get(game.boardOwnerId);
+        if(game.boardGuestId || (playerId === boardOwner.playerId)){
             return;
         }
         const boardGuest = new Board(playerId);
@@ -32,7 +33,6 @@ class GameManager{
         game.startTime = date.getDate();
         game.boardGuestId = boardGuestId;
         game.status = "PLAYING";
-        const boardOwner = <Board> db.boards.get(game.boardOwnerId);
         boardOwner.status = "PLAYING";
         db.games.update(game);
         console.log("Player id "+playerId+" join to game");

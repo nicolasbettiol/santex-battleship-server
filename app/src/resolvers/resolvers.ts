@@ -37,6 +37,7 @@ const Mutation = {
     return db.games.get(input.gameId);
   },
   shot: (root, {input}) => {
+    console.log("shot for board "+input.boardId);
     bm.shot(input.boardId, input.x, input.y);
     gm.checkGameStatus(input.boardId, input.gameId);
     return db.games.get(input.gameId);
